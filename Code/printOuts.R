@@ -1,9 +1,6 @@
 #####################################################################################################
 ## Printing the results of multiOut ##
 #####################################################################################################
-
-# test change
-
 printOuts <- function(
   multiOutdat, # data output by multiOut function
   nCont = 3 # the number of top contributors to consider
