@@ -5,7 +5,7 @@ require(rrcov); require(MASS); require(reshape);require(ggplot2)
 #####################################################################################################
 ## function to calculate cov^(-1/2) ##
 #####################################################################################################
-"%^%" <- function(x, n){
+sqrtMat <- function(x, n){
   with(eigen(x), vectors %*% (values^n * t(vectors)))
 }
 
@@ -36,7 +36,7 @@ getRMDO <- function(
   dsd <- d %*% cn %*% d
   
   trans1 <- sweep(dat,2,x1)
-  corrmax <- dsd %^% (-1/2) %*% d
+  corrmax <- sqrtMat(dsd,-1/2) %*% d
   contrib <- apply(trans1,1,function(i){corrmax %*% as.matrix(i)})
   w2 <- t(contrib**2)
   colnames(w2) <- colnames(dat)
