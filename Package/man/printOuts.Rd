@@ -16,14 +16,15 @@ printOuts(multiOutdat, nCont = 3)
 output from multiOut()
 }
   \item{nCont}{
-the number of contributing variables to consider. Default is 3.
+the number of contributing variables to consider (and plot). Default is 3. Maximum option is 4 (at the moment).
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+This function prints 3 types of plots: (1) a plot showing the distribution of RMDO; (2) two plots showing the distribution of the contributing variables, one for all observations and one for outliers only; (3) scatterplots identifying the outlier against other data points. Depending on the nCont chosen, the variable which contributes the most will be on the x-axis, followed by the y-axis, and then the colour scale.  If ncont=4 is chosen, two plots are printed for each observation: the first shows the first, second, and third most contributing variables, while the second shows the first, second, and fourth.
 }
 \value{
-%%  ~Describe the value returned
+
+The function produces a data.frame with the top nCont variables of each outlier.  Contrib is the contribution value, while value is the value for that observation-variable pairing in initDat.
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}

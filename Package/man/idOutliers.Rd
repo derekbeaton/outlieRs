@@ -35,10 +35,10 @@ the quantile to use as the outlier cut-off.
 %%  ~Describe the value returned
 %%  If it is a LIST, use
   \item{cutoff }{
-  The cut-off based on averaging the quantiles of each repetition.
+  the cut-off based on averaging the quantiles of each repetition.
   }
   \item{cutoff_all }{
-  The quantile form each repetition.
+  the quantile form each repetition.
   }
 %% ...
 }
