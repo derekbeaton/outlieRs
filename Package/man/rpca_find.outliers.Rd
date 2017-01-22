@@ -30,28 +30,29 @@ rpca_find.outliers(X, center = F, scale = F, quantile.thresh = 0.9,
 \item{corrupted.tolerance}{numeric. A tolerance factor to adjust for \code{sparsity.threshold} to allow for 'close enough' +/- tolerance.}
 }
 \value{
-list with many 4 items: 
-         $outliers -- a matrix with 4 columns. 
-             The first column is 1 (yes) or 0 (no) based on the quantile (based on \code{quantile.thresh}) cutoff based on the proportion of the orthogonal distances: \code{orthogonal.dist(X,S) / orthogonal.dist(L,S)} based on the 'default' RPCA (which uses \code{default.lambda}) 
+list with many 4 items:
+
+         \item{outliers}{ a matrix with 4 columns.
+             The first column is 1 (yes) or 0 (no) based on the quantile (based on \code{quantile.thresh}) cutoff based on the proportion of the orthogonal distances: \code{orthogonal.dist(X,S) / orthogonal.dist(L,S)} based on the 'default' RPCA (which uses \code{default.lambda})
              The second column is 1 (yes) or 0 (no) based on the quantile (based on \code{quantile.thresh}) cutoff based on the proportion of the orthogonal distances: \code{orthogonal.dist(X,S) / orthogonal.dist(L,S)} based on the S(parse) and L(ow rank) matrices discovered in the search process (via \code{lambda.vec} and \code{sparsity.threshold})
              The third column is 1 (yes) or 0 (no) based on whether the default RPCA found any data corruptions for that row
              The fourth column is 1 (yes) or 0 (no) based on whether the sparsity search RPCA found any data corruptions for that row
+             }
+         \item{def.corrupted.threshold}{from the default RPCA a thresholded matrix of only the corrupted rows that also indicates which columns were corrupted}
 
-         $def.corrupted.threshold (from the default RPCA) a thresholded matrix of only the corrupted rows that also indicates which columns were corrupted
-         
-         $corrupted.threshold (from the sparsity search) a thresholded matrix of only the corrupted rows that also indicates which columns were corrupted
-         
-         $dists - a list of the orthogonal distances used to compute outlier estimates in $outliers:
+         \item{corrupted.threshold}{from the sparsity search a thresholded matrix of only the corrupted rows that also indicates which columns were corrupted}
+
+         \item{dists}{a list of the orthogonal distances used to compute outlier estimates in $outliers:
              X.from.S_def_OtoT_orth.dist -- \code{orthogonal.distance(X,S)} from default RPCA
-             L_def.from.S_def_OtoT_orth.dist -- \code{orthogonal.distance(L,S)} from default RPCA              
+             L_def.from.S_def_OtoT_orth.dist -- \code{orthogonal.distance(L,S)} from default RPCA
              X.from.S_sparse_OtoT_orth.dist -- \code{orthogonal.distance(X,S)} from sparsity search RPCA
              L_sparse.from.S_sparse_OtoT_orth.dist -- \code{orthogonal.distance(L,S)} from sparsity search RPCA
+             }
 }
 \description{
 Find outliers with the Candes Robust PCA approach
 }
 \examples{
-require(ExPosition)
 data(beer.tasting.notes)
 the.data <- expo.scale(beer.tasting.notes$data)
 the.data_corrected_for_ABV <- apply(the.data,2, function(x){ resid(lm(x~beer.tasting.notes$sup.data[,"ABV"])) } )

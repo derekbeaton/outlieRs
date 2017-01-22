@@ -26,7 +26,7 @@ mcd.boot_find.outliers(X, center = F, scale = F, mcd.search.iters = 1000,
 \item{frequency.thresh}{numeric. numeric. An inverse threshold for bootstrapping. Typically 1-full.cloud.thresh; typically unused (for now)}
 }
 \value{
-matrix with 8 columns. The first 4 columns are for Mahalanobis distance outlier estimates, and the last 4 columns are for Chi-squared distance outlier estimates. 
+matrix with 8 columns. The first 4 columns are for Mahalanobis distance outlier estimates, and the last 4 columns are for Chi-squared distance outlier estimates.
          the 'Dist' columns provide the distance of each item, the 'boot dist' columns provide the average of bootstrap distances
          the 'out %' column provides a likelihood of outlierness where the 'Outlier' columns are a simple 1 (yes) and 0 (no) of whether an item is an outlier based on the 'out %' value (and the threshold parameters input by the user)
 }
@@ -34,7 +34,6 @@ matrix with 8 columns. The first 4 columns are for Mahalanobis distance outlier 
 Find outliers with the MCD+Bootstrap PCA approach
 }
 \examples{
-require(ExPosition)
 data(beer.tasting.notes)
 the.data <- expo.scale(beer.tasting.notes$data)
 the.data_corrected_for_ABV <- apply(the.data,2, function(x){ resid(lm(x~beer.tasting.notes$sup.data[,"ABV"])) } )

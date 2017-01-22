@@ -10,14 +10,7 @@ Calls getRMDO() and idOutliers() to calculate the robust parameters, RMDO, and i
 \usage{
 multiOut(dat, rmdo_alpha = 0.8, rmdo_nsamp = "best", nsims = 100, nsamps = 250, alpha = 0.01)
 }
-%- maybe also 'usage' for other objects documented here.
 
-  dat, # the data frame, excluding identifiers
-  rmdo_alpha = 0.8, # see getRMDO -- myalpha
-  rmdo_nsamp = "best", # option for getRMDO - number of iterations required to find robust parameters
-  nsims = 100, # then number of total simuations (so nsims/iters per iteration)
-  nsamps = 250, # the number of points to simulate in process of determining cut-off for outlier
-  alpha=0.01 # error to allow in CIs for quantile cut-offs
 
 \arguments{
   \item{dat}{
@@ -82,8 +75,8 @@ data.frame of the contribution for each observation-variable pair.
 ##--	or do  help(data=index)  for the standard data sets.
 
 ## The function is currently defined as
-function (dat, rmdo_alpha = 0.8, rmdo_nsamp = "best", nsims = 100, 
-    nsamps = 250, alpha = 0.01) 
+function (dat, rmdo_alpha = 0.8, rmdo_nsamp = "best", nsims = 100,
+    nsamps = 250, alpha = 0.01)
 {
     if (is.null(colnames(dat))) {
         colnames(dat) <- paste("Col", 1:ncol(dat), sep = "")
@@ -97,14 +90,14 @@ function (dat, rmdo_alpha = 0.8, rmdo_nsamp = "best", nsims = 100,
     scatters <- data.frame(rmdos[["mcdCov"]])
     contVar <- data.frame(rmdos[["W2"]])
     contVar$ID <- rownames(contVar)
-    idOut <- idOutliers(obsOV = rmdos, nsamps = nsamps, nreps = nsims, 
+    idOut <- idOutliers(obsOV = rmdos, nsamps = nsamps, nreps = nsims,
         thisquant = 1 - alpha)
     outCut <- idOut[["cutoff"]]
     contVar1 <- suppressMessages(melt(contVar))
-    outs <- data.frame(ID = rownames(dat), RMDO = rmdoCalc, Outlier = ifelse(rmdoCalc >= 
+    outs <- data.frame(ID = rownames(dat), RMDO = rmdoCalc, Outlier = ifelse(rmdoCalc >=
         outCut, 1, 0))
     outs1 <- outs[order(outs$RMDO, decreasing = T), ]
-    return(list(initDat = as.data.frame(dat), RMDO = outs1, RMDOalpha = rmdo_alpha, 
+    return(list(initDat = as.data.frame(dat), RMDO = outs1, RMDOalpha = rmdo_alpha,
         Contribs = contVar1, CutOff = outCut))
   }
 }

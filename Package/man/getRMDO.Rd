@@ -65,35 +65,7 @@ Garthwaite, P.H. & Koch, I. (2016).  Evaluating the contributions of individual 
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function (dat, nsamp = "best", myalpha = 0.5) 
-{
-    mcd1 <- CovMcd(dat, alpha = myalpha, nsamp = nsamp)
-    x1 <- mcd1@center
-    cn <- mcd1@cov
-    md <- apply(dat, 1, function(i) {
-        t(i - x1) \%*\% solve(cn) \%*\% (i - x1)
-    })
-    rmde <- 1 + sqrt(md)
-    rmde1 <- 1/rmde
-    rmdo <- 1 - rmde1
-    smpsd <- sqrt(diag(cn))
-    d <- diag(1/smpsd)
-    dsd <- d \%*\% cn \%*\% d
-    trans1 <- sweep(dat, 2, x1)
-    corrmax <- sqrtMat(dsd, -1/2) \%*\% d
-    contrib <- apply(trans1, 1, function(i) {
-        corrmax \%*\% as.matrix(i)
-    })
-    w2 <- t(contrib^2)
-    colnames(w2) <- colnames(dat)
-    return(list(RMDO = rmdo, mcdCenter = x1, mcdCov = cn, initDat = dat, 
-        myalpha = myalpha, W2 = w2))
-  }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -1,13 +1,12 @@
 Package: outlieRs
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
-LazyData: TRUE
-Imports:
+Title: A set of utilities to identify outliers and anomalies in data.
+Version: 0.1.0.9000
+Author: Kelly Sunderland and Derek Beaton
+Maintainer: Derek Beaton <dbeaton@research.baycrest.org>
+Description: Utilities for outliers across several techniques including: Minimum Covariance Determinant (MCD), Principal Components Analysis (PCA), Candes's Robust PCA (RPCA), and bootstrapping. This package is not for distribution at this time and is in very (very very) early development.
+License: GPL3
+Depends:
     TInPosition,
     rrcov,
     doParallel,
