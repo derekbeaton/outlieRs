@@ -12,5 +12,7 @@ Imports:
     rrcov,
     doParallel,
     rpca,
-    MASS
+    MASS,
+    reshape,
+    ggplot2
 RoxygenNote: 5.0.1
