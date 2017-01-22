@@ -32,8 +32,8 @@
 #' data(beer.tasting.notes)
 #' the.data <- expo.scale(beer.tasting.notes$data)
 #' the.data_corrected_for_ABV <- apply(the.data,2, function(x){ resid(lm(x~beer.tasting.notes$sup.data[,"ABV"])) } )
-#' beer_rpca <- rpca.outliers(the.data)
-#' beer.corrected_rpca <- rpca.outliers(the.data_corrected_for_ABV)
+#' beer_rpca <- rpca_find.outliers(the.data)
+#' beer.corrected_rpca <- rpca_find.outliers(the.data_corrected_for_ABV)
 
 
 

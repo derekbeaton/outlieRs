@@ -19,8 +19,8 @@
 #' data(beer.tasting.notes)
 #' the.data <- expo.scale(beer.tasting.notes$data)
 #' the.data_corrected_for_ABV <- apply(the.data,2, function(x){ resid(lm(x~beer.tasting.notes$sup.data[,"ABV"])) } )
-#' beer_MCD.boot_full.combined_95 <- mcd.boot.find.outliers(the.data,center=F,scale=F)
-#' beer.corrected_MCD.boot_full.combined_95 <- mcd.boot.find.outliers(the.data_corrected_for_ABV,center=F,scale=F)
+#' beer_MCD.boot_full.combined_95 <- mcd.boot_find.outliers(the.data,center=F,scale=F)
+#' beer.corrected_MCD.boot_full.combined_95 <- mcd.boot_find.outliers(the.data_corrected_for_ABV,center=F,scale=F)
 
 mcd.boot_find.outliers <- function(X,center=F,scale=F,mcd.search.iters=1000,mcd.alpha=.75,boot.search.iters=1000,full.cloud.thresh=.99,frequency.thresh=NA){
 
