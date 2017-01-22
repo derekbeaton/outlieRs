@@ -6,6 +6,20 @@ getRMDO <- function(
   nsamp="best", # the nsamp variable for CovMcd
   myalpha = 0.5 # alpha for proportion of obs to include in MCD-MD
 ){
+	
+	### DB made this change!
+	#### Here I am moving the sqrtMat() function from its own file to a "private" function within getRMDO. 
+	#### the reason is that it is a function used here, that we don't necessarily want the users to access.
+	#####################################################################################################
+
+	## a private (to getRMDO) function: sqrtMat
+	## function to calculate cov^(-1/2) ##
+	#####################################################################################################
+	sqrtMat <- function(x, n){
+	  with(eigen(x), vectors %*% (values^n * t(vectors)))
+	}
+
+	
   # Using fast-MCD to calculate robust mean and covariance
   mcd1 <- CovMcd(dat,alpha=myalpha,nsamp=nsamp) 
   x1 <- mcd1@center
