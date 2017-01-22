@@ -1,6 +1,6 @@
-library(InPosition)
-library(rrcov)
-library(doParallel)
+# library(InPosition)
+# library(rrcov)
+# library(doParallel)
 
 mcd.boot.pipeline <- function(X, center=T,scale=T, mcd.search.iters=2500, mcd.alpha=.75, boot.search.iters=1000){
 	
