@@ -41,7 +41,7 @@ multiOut <- function(
   outs1 <- outs[order(outs$RMDO,decreasing = T),]
   
   basicOut <- outs[,c("ID","Outlier")]
-  colnames(basicOut)[2] <- "outlier"
+  colnames(basicOut)[2] <- "mcd_outlier"
   
   return(list(outlier_decision=basicOut,
               hidden_detail=list(initDat=as.data.frame(dat),RMDO=outs1, RMDOalpha=rmdo_alpha, Contribs=contVar1, CutOff=outCut)))

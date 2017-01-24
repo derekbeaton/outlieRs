@@ -105,6 +105,6 @@ printOuts <- function(
       }
     } # end of loop through anomalies
   } # end of "yes outliers exist
-  return(topCont2)
+  # return(topCont2)
 } # end of printOuts
 
