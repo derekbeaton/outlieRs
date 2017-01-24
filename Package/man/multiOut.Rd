@@ -38,6 +38,13 @@ the error to allow for quantile cut-offs. 1-alpha -> thisquant in idOutliers.
 \value{
 %%  ~Describe the value returned
 %% return(list(initDat=as.data.frame(dat),RMDO=outs1, RMDOalpha=rmdo_alpha, Contribs=contVar1, CutOff=outCut))
+A list with two elements: outlier_decision and hidden_detail.
+  \item{outlier_decision}{
+a data.frame indicating the observations that are outliers: 1 = outlier; 0 = not an outlier.
+}
+
+hidden_detail is another list with the additional information:
+
   \item{initDat}{
 the initial data supplied to the function.
 }

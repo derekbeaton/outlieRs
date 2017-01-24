@@ -24,7 +24,7 @@ This function prints 3 types of plots: (1) a plot showing the distribution of RM
 }
 \value{
 
-The function produces a data.frame with the top nCont variables of each outlier.  Contrib is the contribution value, while value is the value for that observation-variable pairing in initDat.
+%% The function produces a data.frame with the top nCont variables of each outlier.  Contrib is the contribution value, while value is the value for that observation-variable pairing in initDat.
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
