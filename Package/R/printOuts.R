@@ -6,9 +6,11 @@ printOuts <- function(
   nCont = 3 # the number of top contributors to consider
 ){
   
+  multiOutdat1 <- multiOutdat$hidden_detail
+  
   ######### Plot 1: Distribution of mean RMDOs
-  outs1 <- multiOutdat[["RMDO"]]
-  outCut <- multiOutdat[["CutOff"]]
+  outs1 <- multiOutdat1[["RMDO"]]
+  outCut <- multiOutdat1[["CutOff"]]
   # Plot of decreasing RMDO values, with the cut-off identified
   outs1$ID <- factor(outs1$ID,level=outs1$ID)
   outs1$Outlier <- factor(outs1$Outlier,level=unique(outs1$Outlier))
@@ -22,7 +24,7 @@ printOuts <- function(
                 legend.title=element_text(size=15)))
   
   ######### Plot 2: Distribution of Contribution for each observation
-  Contribs <- multiOutdat[["Contribs"]]
+  Contribs <- multiOutdat1[["Contribs"]]
   
   contribs1 <- merge(Contribs,outs1)
   contribs2 <- contribs1[order(contribs1$RMDO),]
@@ -60,7 +62,7 @@ printOuts <- function(
     topCont2 <- topCont2[order(topCont2$RMDO,topCont2$value,decreasing = T),]
     colnames(topCont2)[which(colnames(topCont1)=="value")] <- "contrib"
     
-    initdat <- multiOutdat[["initDat"]]
+    initdat <- multiOutdat1[["initDat"]]
     
     # Adding observed values to the table
     
@@ -103,6 +105,6 @@ printOuts <- function(
       }
     } # end of loop through anomalies
   } # end of "yes outliers exist
-  return(topCont2)
+  # return(topCont2)
 } # end of printOuts
 
