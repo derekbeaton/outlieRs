@@ -36,7 +36,7 @@ printOuts <- function(
           geom_hline(yintercept = outline,linetype="dashed") + 
           geom_text(data=data.frame(outline),aes(label="Outliers",y=outline,x=outlab,fontface="bold"),color="black",nudge_x=-5,nudge_y=1) +
           theme(legend.position="none",plot.title=element_text(face="bold"),
-                axis.text.y=element_text(colour="black"),axis.text.y=element_text(size=7.5)))
+                axis.text.y=element_text(colour="black",size=7.5)))
   
   ######### Plot 3: Distribution of Contribution for each observation - Anomalies only
   if(any(outs1$Outlier == 1)){
