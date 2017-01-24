@@ -40,5 +40,9 @@ multiOut <- function(
   outs <- data.frame(ID=rownames(dat),RMDO=rmdoCalc,Outlier=ifelse(rmdoCalc >= outCut,1,0))
   outs1 <- outs[order(outs$RMDO,decreasing = T),]
   
-  return(list(initDat=as.data.frame(dat),RMDO=outs1, RMDOalpha=rmdo_alpha, Contribs=contVar1, CutOff=outCut))
+  basicOut <- outs[,c("ID","Outlier")]
+  colnames(basicOut)[2] <- "outlier"
+  
+  return(list(outlier_decision=basicOut,
+              hidden_detail=list(initDat=as.data.frame(dat),RMDO=outs1, RMDOalpha=rmdo_alpha, Contribs=contVar1, CutOff=outCut)))
 } # end of multiOut function

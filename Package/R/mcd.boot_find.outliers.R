@@ -52,8 +52,8 @@ mcd.boot_find.outliers <- function(X,center=F,scale=F,mcd.search.iters=1000,mcd.
 	outliers_full[names(chi2.outlier.computations$freq.boot.outliers),"Chi2 out %"] <- chi2.outlier.computations$freq.boot.outliers
 	outliers_full[names(chi2.outlier.computations$thresh.boot.outliers),"Chi2 Outlier"] <- chi2.outlier.computations$thresh.boot.outliers+0
 
+  basicOut <- data.frame(ID=rownames(outliers_full),mah_outlier=outliers_full[,"M Outlier"],chi_outlier=outliers_full[,"Chi2 Outlier"])
 
-
-	return(outliers_full[order(outliers_full[,"M out %"],outliers_full[,"Chi2 out %"],decreasing=T),])
+	return(list(outlier_decision=basicOut,hidden_detail=outliers_full[order(outliers_full[,"M out %"],outliers_full[,"Chi2 out %"],decreasing=T),]))
 
 }

@@ -108,8 +108,10 @@ rpca_find.outliers <- function(X, center=F, scale= F,quantile.thresh=.9,S.tolera
 	outliers[names(def.corrupted.rows),"Default RPCA Corrupted"] <- 1
 	outliers[names(corrupted.rows),"Sparse Search RPCA Corrupted"] <- 1
 
-
-	return(list(outliers=outliers,
+	basicOut <- data.frame(ID=rownames(outliers),outlier=ifelse(rowSums(outliers[,1:2])>0,1,0))
+	
+	return(list(outlier_decision=basicOut,
+	            hidden_detail=list(outliers=outliers,
 	            corrupted.threshold= corrupted.threshold,
 	            def.corrupted.threshold= def.corrupted.threshold,
 		dists=list(
@@ -118,7 +120,7 @@ rpca_find.outliers <- function(X, center=F, scale= F,quantile.thresh=.9,S.tolera
 				X.from.S_sparse_OtoT_orth.dist=X.from.S_sparse$OtoT_orth.dist,
 				L_sparse.from.S_sparse_OtoT_orth.dist=L_sparse.from.S_sparse$OtoT_orth.dist
 				)
-		))
+		)))
 
 
 }
