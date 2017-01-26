@@ -11,8 +11,7 @@ require(outlieRs)
 ## The cleaning/correcting/scaling processes should be done in whatever software you are comfortable with.
 
 # Read data in from .csv file
-#nidat <- read.csv("Clean_FS_a_data_V2.csv",header=T)
-nidat <- read.csv("/Volumes/JOHNNYFIVE/Professional/Baycrest/S17/CANBIND/Clean_FS_a_centered_and_nscaled.csv",header=T)
+nidat <- read.csv("Clean_FS_a_centered_and_nscaled.csv",header=T)
 
 # What are the dimensions of the data?
 dim(nidat)
