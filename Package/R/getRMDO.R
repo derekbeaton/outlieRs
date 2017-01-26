@@ -41,13 +41,13 @@ getRMDO <- function(dat,nsamp="best", myalpha = 0.5 ){
   #
   # Based on 2016 paper: Contributions to Quadratic Form
   smpsd <- sqrt(diag(cn))
-  d <- diag(1/smpsd)
-  dsd <- d %*% cn %*% d
+  d <- diag(1/smpsd)      ## DB NOTE: a fraction can make a diag() panic.
+  dsd <- d %*% cn %*% d   ## DB Q: Is this converting cov to cor?
 
-  trans1 <- sweep(dat,2,x1)
-  corrmax <- sqrtMat(dsd,-1/2) %*% d
-  contrib <- apply(trans1,1,function(i){corrmax %*% as.matrix(i)})
-  w2 <- t(contrib**2)
+  trans1 <- sweep(dat,2,x1) ## DB Q: Center data by robust mean?
+  corrmax <- sqrtMat(dsd,-1/2) %*% d ## DB Q: inverse sqrt of cor times data?
+  contrib <- apply(trans1,1,function(i){corrmax %*% as.matrix(i)}) # DB Q: data times correlation?
+  w2 <- t(contrib**2) ## DB Q: squared "contributions"?
   colnames(w2) <- colnames(dat)
 
   return(list(RMDO=rmdo, mcdCenter=x1, mcdCov=cn, initDat=dat, myalpha=myalpha, W2=w2))
