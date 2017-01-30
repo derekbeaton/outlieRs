@@ -46,6 +46,7 @@ getRMDO <- function(dat,nsamp="best", myalpha = 0.5 ){
 
   trans1 <- sweep(dat,2,x1) ## DB Q: Center data by robust mean?
   corrmax <- sqrtMat(dsd,-1/2) %*% d ## DB Q: inverse sqrt of cor times data?
+  colnames(corrmax) <- rownames(corrmax) <- colnames(dat)
   contrib <- apply(trans1,1,function(i){corrmax %*% as.matrix(i)}) # DB Q: data times correlation?
   w2 <- t(contrib**2) ## DB Q: squared "contributions"?
   colnames(w2) <- colnames(dat)
