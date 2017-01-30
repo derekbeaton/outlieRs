@@ -50,7 +50,7 @@ getRMDO <- function(dat,nsamp="best", myalpha = 0.5 ){
   w2 <- t(contrib**2) ## DB Q: squared "contributions"?
   colnames(w2) <- colnames(dat)
 
-  return(list(RMDO=rmdo, mcdCenter=x1, mcdCov=cn, initDat=dat, myalpha=myalpha, W2=w2))
+  return(list(RMDO=rmdo, mcdCenter=x1, mcdCov=cn, initDat=dat, myalpha=myalpha, W2=w2,corrMat=corrmax))
   # mcdUsed=used, DSD=dsd, CorrMax=corrmax,
 }
 

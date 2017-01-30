@@ -44,5 +44,5 @@ multiOut <- function(
   colnames(basicOut)[2] <- "mcd_outlier"
   
   return(list(outlier_decision=basicOut,
-              hidden_detail=list(initDat=as.data.frame(dat),RMDO=outs1, RMDOalpha=rmdo_alpha, Contribs=contVar1, CutOff=outCut)))
+              hidden_detail=list(initDat=as.data.frame(dat),RMDO=outs1, RMDOalpha=rmdo_alpha, Contribs=contVar1, corrMat=rmdos[["corrMat"]], CutOff=outCut)))
 } # end of multiOut function
