@@ -30,7 +30,11 @@ rpca_find.outliers(X, center = F, scale = F, quantile.thresh = 0.9,
 \item{corrupted.tolerance}{numeric. A tolerance factor to adjust for \code{sparsity.threshold} to allow for 'close enough' +/- tolerance.}
 }
 \value{
-list with many 4 items:
+A list with two elements: outlier_decision and hidden_detail.
+\item{outlier_decision}{ a data.frame indicating the observations that are outliers: 1 = outlier; 0 = not an outlier.}
+
+hidden_detail is another list with the additional information:
+list with 4 items:
 
          \item{outliers}{ a matrix with 4 columns.
              The first column is 1 (yes) or 0 (no) based on the quantile (based on \code{quantile.thresh}) cutoff based on the proportion of the orthogonal distances: \code{orthogonal.dist(X,S) / orthogonal.dist(L,S)} based on the 'default' RPCA (which uses \code{default.lambda})

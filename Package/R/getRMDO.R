@@ -1,4 +1,4 @@
-# Find outliers with the Candes Robust PCA approach
+## For Roxygen2
 #' @export
 
 ### DO THESE LATER.

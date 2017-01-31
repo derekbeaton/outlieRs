@@ -26,7 +26,9 @@ mcd.boot_find.outliers(X, center = F, scale = F, mcd.search.iters = 1000,
 \item{frequency.thresh}{numeric. numeric. An inverse threshold for bootstrapping. Typically 1-full.cloud.thresh; typically unused (for now)}
 }
 \value{
-matrix with 8 columns. The first 4 columns are for Mahalanobis distance outlier estimates, and the last 4 columns are for Chi-squared distance outlier estimates.
+A list with two elements: outlier_decision and hidden_detail.
+\item{outlier_decision}{ a data.frame indicating the observations that are outliers: 1 = outlier; 0 = not an outlier.}
+hidden_detail is another list with the additional information: a matrix with 8 columns. The first 4 columns are for Mahalanobis distance outlier estimates, and the last 4 columns are for Chi-squared distance outlier estimates.
          the 'Dist' columns provide the distance of each item, the 'boot dist' columns provide the average of bootstrap distances
          the 'out %' column provides a likelihood of outlierness where the 'Outlier' columns are a simple 1 (yes) and 0 (no) of whether an item is an outlier based on the 'out %' value (and the threshold parameters input by the user)
 }

@@ -1,3 +1,9 @@
+## For Roxygen2
+#' @export
+#'
+
+
+
 #####################################################################################################
 ## Identifying Cut-off for Outliers with simulation ##
 #####################################################################################################
@@ -12,7 +18,7 @@ idOutliers <- function(
   mcdMn <- obsOV[["mcdCenter"]]
   mcdCov <- obsOV[["mcdCov"]]
   myalpha <- obsOV[["myalpha"]]
-  
+
   # simulating multivariate normal distributions with the robust mean and covaraince from getRMDO
   outquants <- c()
   for(i in 1:nreps){
@@ -20,10 +26,10 @@ idOutliers <- function(
     trmdo <- getRMDO(tsamp,nsamp=rmdo_nsamp,myalpha=myalpha)   # this is where time is problematic
     outquants[i] <- quantile(trmdo[["RMDO"]],thisquant) # saving the quantile value only
   }
-  
+
   # pulling the mean of all simulated quantiles -- will be the cut-off
   simquant <- mean(outquants)
-  
+
   return(list(cutoff=simquant,cutoff_all=outquants))
 }
 #####################################################################################################

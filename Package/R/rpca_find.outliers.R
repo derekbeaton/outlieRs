@@ -13,7 +13,11 @@
 #' @param corrupted.tolerance numeric. A tolerance factor to adjust for \code{sparsity.threshold} to allow for 'close enough' +/- tolerance.
 #'
 #'
-#' @return list with many 4 items:
+#' @return  A list with two elements: outlier_decision and hidden_detail.
+#' \item{outlier_decision}{ a data.frame indicating the observations that are outliers: 1 = outlier; 0 = not an outlier.}
+#'
+#' hidden_detail is another list with the additional information:
+#' list with 4 items:
 #'
 #'          \item{outliers}{ a matrix with 4 columns.
 #'              The first column is 1 (yes) or 0 (no) based on the quantile (based on \code{quantile.thresh}) cutoff based on the proportion of the orthogonal distances: \code{orthogonal.dist(X,S) / orthogonal.dist(L,S)} based on the 'default' RPCA (which uses \code{default.lambda})
@@ -109,7 +113,7 @@ rpca_find.outliers <- function(X, center=F, scale= F,quantile.thresh=.9,S.tolera
 	outliers[names(corrupted.rows),"Sparse Search RPCA Corrupted"] <- 1
 
 	basicOut <- data.frame(ID=rownames(outliers),rpca_outlier=ifelse(rowSums(outliers[,1:2])>0,1,0))
-	
+
 	return(list(outlier_decision=basicOut,
 	            hidden_detail=list(outliers=outliers,
 	            corrupted.threshold= corrupted.threshold,
