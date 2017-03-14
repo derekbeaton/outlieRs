@@ -11,43 +11,36 @@ require(outlieRs)
 ## The cleaning/correcting/scaling processes should be done in whatever software you are comfortable with.
 
 # Read data in from .csv file
-ni.demographics <- read.csv("demographics.csv",header=T,row.names = 1)
-ni.data <- read.csv("simulated.brain_z.csv",header=T,row.names = 1)
-
-
-
+nidat <- read.csv("Clean_FS_a_centered_and_nscaled.csv",header=T)
 
 # What are the dimensions of the data?
-dim(ni.data)
+dim(nidat)
   ## specifically get rows and columns
-  nrow(ni.data)
-  ncol(ni.data)
+  nrow(nidat)
+  ncol(nidat)
 
 # What are the column names?
-  colnames(ni.data)
+  colnames(nidat)
 # What are the row names?
-  rownames(ni.data)
+  rownames(nidat)
 
 # What do the first three rows and columns look like?
-ni.data[1:3,1:3]
+nidat[1:3,1:3]
 
 # What do the first three rows and *all* the columns look like?
-ni.data[1:3,]
+nidat[1:3,]
 
 # Let's get some descriptors and summaries of the data.
-str(ni.data)
-summary(ni.data)
+str(nidat)
+summary(nidat)
 
-
-##### PCA Diagnostics #####
-pca.diagnosticsResult <- pca.diagnostics(ni.data,center = F,scale=F)
 
 
 
 ##### Minimum covariance determinant (MCD) #####
 # to see the help file (e.g., short description, inputs, outputs), type the following line (without the #) into the console:
 # ?multiOut
-mcdResult <- multiOut(ni.data,rmdo_alpha=0.9)
+mcdResult <- multiOut(nidat,rmdo_alpha=0.9)
 
 # looking at results
   ## this provides a full set of results
@@ -64,7 +57,7 @@ head(mcdOut)
 ##### MCD + Bootstrap PCA (for Mahalanobis and score distances; Boot-MCD) #####
 # looking at results
   ## this provides a full set of results
-bootResult <- mcd.boot_find.outliers(ni.data)
+bootResult <- mcd.boot_find.outliers(nidat)
   ## this is the binary decision: if a row is outlier or not
 bootOut <- bootResult$outlier_decision
   ## look at the first few
@@ -74,7 +67,7 @@ head(bootOut)
 ##### Candes' Robust PCA #####
 # looking at results
   ## this provides a full set of results
-rpcaResult <- rpca_find.outliers(ni.data)
+rpcaResult <- rpca_find.outliers(nidat)
   ## this is the binary decision: if a row is outlier or not
 rpcaOut <- rpcaResult$outlier_decision
   ## look at the first few

@@ -107,6 +107,6 @@ pca.diagnostics <- function(X, center=T, scale=T, ellipse.alpha=.95, quantile.al
     }
   }
 
-  return(list(ellipse.outliers=list(robust.outs=z1.outs,classic.outs=z2.outs),quantile.outliers=list(out.quantile.cd=out.quantile.cd,out.quantile.md=out.quantile.cd,out.quantile.both=out.quantile.both)))
+  return(list(ellipse.outliers=list(robust.outs=!z1.outs,classic.outs=!z2.outs),quantile.outliers=list(out.quantile.cd=out.quantile.cd,out.quantile.md=out.quantile.cd,out.quantile.both=out.quantile.both)))
 
 }
