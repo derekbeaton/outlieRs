@@ -14,5 +14,6 @@ Depends:
     MASS,
     reshape,
     ggplot2,
-    mvtnorm
+    mvtnorm,
+    SIBER
 RoxygenNote: 5.0.1

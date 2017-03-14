@@ -10,12 +10,16 @@
 #' @param graphs a boolean. If TRUE, two graphs will be shown.
 #'
 #' @return
-#'  some lists.
+#' A list with two lists: ellipse.outliers and quantile.outliers.
+#' \item{ellipse.outers}{ a list with two boolean vectors: robust.outs and classic.outs. Outliers detected from the ellipse intervals around Mahalanonbis vs. Chi-squared distances. If an observation is an outlier, they are denoted as TRUE in either vector.}
+#' \item{quantile.outliers}{ a list with two boolean vectors: robust.outs and classic.outs. Outliers detected from the quantile intervals of Mahalanonbis vs. Chi-squared distances. If an observation is an outlier, they are denoted as TRUE in either vector.}
 #'
 #' @examples
-#'  ## a very stupid example for now.
-#'  data(hbk)
-#'  res <- pca.diagnostics(scale(data.matrix(hbk[, 1:2]),scale=F),center = F,scale = F)
+#'  data(beer.tasting.notes)
+#'  the.data <- expo.scale(beer.tasting.notes$data)
+#'  the.data_corrected_for_ABV <- apply(the.data,2, function(x){ resid(lm(x~beer.tasting.notes$sup.data[,"ABV"])) } )
+#'  beer.diagnostics.res <- pca.diagnostics(the.data,center = F,scale = F)
+#'  beer.corrected.diagnostics.res <- pca.diagnostics(the.data_corrected_for_ABV,center = F,scale = F)
 #'
 
 pca.diagnostics <- function(X, center=T, scale=T, ellipse.alpha=.95, quantile.alpha=.75, graphs=T){
@@ -73,8 +77,8 @@ pca.diagnostics <- function(X, center=T, scale=T, ellipse.alpha=.95, quantile.al
 
   ## three (or four) pictures
     ## lims
-  x1 <- c(-max.abs.cd*.05,max.abs.cd)
-  y1 <- c(-max.abs.md*.05,max.abs.md)
+  x1 <- c(-max.abs.cd*.05,max.abs.cd)*1.1
+  y1 <- c(-max.abs.md*.05,max.abs.md)*1.1
 
   if(graphs){
     dev.new()
@@ -82,7 +86,7 @@ pca.diagnostics <- function(X, center=T, scale=T, ellipse.alpha=.95, quantile.al
     tmp <- addEllipse(mcd.center,mcd.cov,p.interval = ellipse.alpha,col="red",lty=1)
     tmp2 <- addEllipse(data.center,data.cov,p.interval = ellipse.alpha,col="blue",lty=2)
     points(dat[!z1.outs,],bg="red",pch=21,cex=1)
-      text(dat[!z1.outs,],labels=rownames(dat[!z2.outs,]),pos=1,col="red")
+      text(dat[!z1.outs,],labels=rownames(dat[!z1.outs,]),pos=1,col="red")
     points(dat[!z2.outs,],bg="blue",pch=21,cex=1)
       text(dat[!z2.outs,],labels=rownames(dat[!z2.outs,]),pos=1,col="blue")
     legend("bottomright",legend=c("Classic ellipse","Robust ellipse"), col=c("blue","red"), lty=c(2,1))
@@ -92,6 +96,15 @@ pca.diagnostics <- function(X, center=T, scale=T, ellipse.alpha=.95, quantile.al
     abline(v=cd.quant,col="mediumorchid3",lwd=2,lty=2)
     abline(h=md.quant,col="olivedrab3",lwd=2,lty=2)
     points(dat,bg=quantile.cols, cex=quantile.sizes, pch=21)
+    if(length(out.quantile.cd) > 0){
+      text(dat[out.quantile.cd,],labels=rownames(dat[out.quantile.cd,]),pos=3,col="mediumorchid3")
+    }
+    if(length(out.quantile.md) > 0){
+      text(dat[out.quantile.md,],labels=rownames(dat[out.quantile.md,]),pos=3,col="olivedrab3")
+    }
+    if(length(out.quantile.both) > 0){
+      text(dat[out.quantile.both,],labels=rownames(dat[out.quantile.both,]),pos=3,col="firebrick3")
+    }
   }
 
   return(list(ellipse.outliers=list(robust.outs=z1.outs,classic.outs=z2.outs),quantile.outliers=list(out.quantile.cd=out.quantile.cd,out.quantile.md=out.quantile.cd,out.quantile.both=out.quantile.both)))
