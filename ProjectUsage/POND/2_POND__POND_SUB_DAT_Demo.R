@@ -11,11 +11,7 @@ require(outlieRs)
 ## The cleaning/correcting/scaling processes should be done in whatever software you are comfortable with.
 
 # Read data in from .csv file
-ni.demographics <- read.csv("demographics.csv",header=T,row.names = 1)
-ni.data <- read.csv("simulated.brain_z.csv",header=T,row.names = 1)
-
-
-
+nidat <- read.csv("Clean_FS_a_centered_and_nscaled.csv",header=T)
 
 # What are the dimensions of the data?
 dim(nidat)
