@@ -24,6 +24,38 @@
 
 pca.diagnostics <- function(X, center=T, scale=T, ellipse.alpha=.95, quantile.alpha=.75, graphs=T){
 
+	## pTE private function. STOLEN FROM SIBER 2.1.0
+pointsToEllipsoid <- function (X, Sigma, mu) 
+{
+    if (ncol(Sigma) != nrow(Sigma)) 
+        stop("Sigma must be a square matrix")
+    if (ncol(X) != ncol(Sigma)) 
+        stop("number of columns in X must \n                                  be of same dimension as Sigma")
+    if (length(mu) != ncol(Sigma)) 
+        stop("length of mu must \n                                  be of same dimension as Sigma")
+    eig <- eigen(Sigma)
+    SigSqrt = eig$vectors %*% diag(sqrt(eig$values)) %*% t(eig$vectors)
+    Z <- t(apply(X, 1, ellipsoidTransform, SigSqrt, mu))
+    return(Z)
+}
+
+	## pTE private function. STOLEN FROM SIBER 2.1.0
+ellipsoidTransform <- function (x, SigSqrt, mu) 
+{
+    return(solve(SigSqrt, x - mu))
+}
+
+	## pTE private function. STOLEN FROM SIBER 2.1.0
+ellipseInOut <- function (Z, p = 0.95, r = NULL) 
+{
+    if (is.null(r)) {
+        r <- stats::qchisq(p, df = ncol(Z))
+    }
+    inside <- rowSums(Z^2) < r
+    return(inside)
+}
+
+
   pca.res <- epPCA(X,center=center,scale=scale,graphs=F)
 
   chi.d <- rowSums(pca.res$ExPosition.Data$fi^2)
