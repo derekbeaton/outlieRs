@@ -30,7 +30,7 @@ mcdOut <- mcdResult$outlier_decision
 head(mcdOut)
 
   ## diagnostic plots
-#printOuts(mcdResult)
+printOuts(mcdResult)
 
 
 ##### MCD + Bootstrap PCA (for Mahalanobis and score distances; Boot-MCD) #####
