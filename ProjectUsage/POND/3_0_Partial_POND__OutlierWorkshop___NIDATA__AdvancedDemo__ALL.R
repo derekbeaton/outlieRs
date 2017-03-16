@@ -99,12 +99,14 @@ head(rpcaOut)
 these.rows <- rownames(mcdOut)
   ## Use cbind to column bind vectors. Index them by 'these.rows'
 allOut <- cbind(
-                mcdOut[these.rows,'mcd_outlier'],
+                #mcdOut[these.rows,'mcd_outlier'],
                 bootOut[these.rows,c('mah_outlier','chi_outlier')],
                 rpcaOut[these.rows,'rpca_outlier']                
               )
 head(allOut)
-colnames(allOut) <- c("MCD","BootMCD - MD","BootMCD - ChiD","RPCA")
+#colnames(allOut) <- c("MCD","BootMCD - MD","BootMCD - ChiD","RPCA")
+colnames(allOut) <- c("BootMCD - MD","BootMCD - ChiD","RPCA")
+
 
 # counting the number of thresholds that identified each observation an outlier
 allOutSums <- rowSums(allOut)
