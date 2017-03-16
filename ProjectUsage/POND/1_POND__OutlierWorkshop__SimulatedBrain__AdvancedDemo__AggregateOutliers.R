@@ -15,29 +15,6 @@ ni.demographics <- read.csv("demographics.csv",header=T,row.names = 1)
 ni.data <- read.csv("simulated.brain_z.csv",header=T,row.names = 1)
 
 
-# What are the dimensions of the data?
-dim(ni.data)
-  ## specifically get rows and columns
-  nrow(ni.data)
-  ncol(ni.data)
-
-# What are the column names?
-  colnames(ni.data)
-# What are the row names?
-  rownames(ni.data)
-
-# What do the first three rows and columns look like?
-ni.data[1:3,1:3]
-
-# What do the first three rows and *all* the columns look like?
-ni.data[1:3,]
-
-# Let's get some descriptors and summaries of the data.
-str(ni.data)
-summary(ni.data)
-
-
-
 
 ##### Minimum covariance determinant (MCD) #####
 # to see the help file (e.g., short description, inputs, outputs), type the following line (without the #) into the console:

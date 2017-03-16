@@ -17,10 +17,32 @@ load('POND.SUB.DEMOS.rda')
 data.for.outliers <- expo.scale(POND.SUB.DAT)
 
 
+
+# What are the dimensions of the data?
+dim(data.for.outliers)
+  ## specifically get rows and columns
+  nrow(data.for.outliers)
+  ncol(data.for.outliers)
+
+# What are the column names?
+  colnames(data.for.outliers)
+# What are the row names?
+  rownames(data.for.outliers)
+
+# What do the first three rows and columns look like?
+data.for.outliers[1:3,1:3]
+
+# What do the first three rows and *all* the columns look like?
+data.for.outliers[1:3,]
+
+# Let's get some descriptors and summaries of the data.
+str(data.for.outliers)
+summary(data.for.outliers)
+
+
+
 ##### PCA Diagnostics #####
 pca.diagnosticsResult <- pca.diagnostics(data.for.outliers,center = F,scale=F)
-
-
 
 
 

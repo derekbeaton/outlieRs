@@ -12,7 +12,7 @@ require(outlieRs)
 
 # Read data in from .csv file
 	## we should pre-scale but this is fine for now.
-ni.data <- expo.scale(as.matrix(read.csv("/Volumes/JOHNNYFIVE/Professional/Baycrest/S17/POND/POND_NI_DAT.csv",header=T,row.names = 1)))
+ni.data <- expo.scale(as.matrix(read.csv("POND_NI_DAT.csv",header=T,row.names = 1)))
 
 
 # What are the dimensions of the data?
