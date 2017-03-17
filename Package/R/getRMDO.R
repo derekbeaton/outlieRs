@@ -37,7 +37,7 @@ getRMDO <- function(dat,nsamp="best", myalpha = 0.5 ){
   rmde1 <- 1/rmde
   rmdo <- 1-rmde1 # outlyingness values
   #
-  #   used <- rownames(dat)[mcd1@best] # the subjects who were included in the MCD calculations
+  used <- rownames(dat)[mcd1@best] # the subjects who were included in the MCD calculations
   #
   # Based on 2016 paper: Contributions to Quadratic Form
   smpsd <- sqrt(diag(cn))
@@ -51,7 +51,7 @@ getRMDO <- function(dat,nsamp="best", myalpha = 0.5 ){
   w2 <- t(contrib**2) ## DB Q: squared "contributions"?
   colnames(w2) <- colnames(dat)
 
-  return(list(RMDO=rmdo, mcdCenter=x1, mcdCov=cn, initDat=dat, myalpha=myalpha, W2=w2,corrMat=corrmax))
+  return(list(RMDO=rmdo, mcdCenter=x1, mcdCov=cn, initDat=dat, myalpha=myalpha, W2=w2,corrMat=corrmax,mcdUsed=used))
   # mcdUsed=used, DSD=dsd, CorrMax=corrmax,
 }
 
