@@ -1,3 +1,4 @@
+#test change.
 ##for now, it's just the SVD, but could easily be any actual SVD technique
 fast.pc.dists <- function(orig.data,o.center=F,o.scale=F,target.data,t.center=F,t.scale=F,t.comps=0){
 	
