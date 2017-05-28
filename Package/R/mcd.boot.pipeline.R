@@ -19,7 +19,7 @@ mcd.boot.pipeline <- function(X, center=T,scale=T, mcd.search.iters=2500, mcd.al
 	sub.samps <- foreach(i=1:mcd.search.iters,.combine=rbind) %dopar% sort(sample(nrow(X), sub.samp.size))
 	sub.samps <- unique(sub.samps)
 	sub.iters <- nrow(sub.samps)
-	min.det <- prod(fixed.res$ExPosition.Data$eigs/ (nrow(X)-1))
+	min.log.det <- sum(log(fixed.res$ExPosition.Data$eigs/ (nrow(X)-1)))
 	min.mcd.samps <- c()
 	print('Start MCD search')	## I can make this better. I need to focus on the WIRE-CS paper.
 								## but I think we can consider a pseudo-split-half approach later.
@@ -27,9 +27,9 @@ mcd.boot.pipeline <- function(X, center=T,scale=T, mcd.search.iters=2500, mcd.al
 	for(i in 1:sub.iters){
 		sub.X <- X[sub.samps[i,],]
 		sub.eigs <- epPCA(sub.X,center=center,scale=scale,graphs=F)$ExPosition.Data$eigs
-		this.det <- prod(sub.eigs/ (nrow(sub.X)-1))
-		if(this.det < min.det){
-			min.det <- this.det
+		this.log.det <- sum(log(sub.eigs/ (nrow(sub.X)-1)))
+		if(this.log.det < min.log.det){
+			min.log.det <- this.log.det
 			min.mcd.samps <- sub.samps[i,]
 		}
 		setTxtProgressBar(pb, i)
@@ -68,7 +68,7 @@ mcd.boot.pipeline <- function(X, center=T,scale=T, mcd.search.iters=2500, mcd.al
 	
 
 	return(list(	mcd.list = min.mcd.samps,
-					mcd.det = min.det,
+					mcd.log.det = min.log.det,
 					boot.mahal = boot.mahal.mcd,
 					boot.chi2 = boot.chi2.mcd))
 	
