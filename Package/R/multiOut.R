@@ -36,7 +36,7 @@ multiOut <- function(
   rmdo_alpha = 0.8, # see getRMDO -- myalpha
   rmdo_nsamp = "best", # option for getRMDO - number of iterations required to find robust parameters
   nsims = 100, # then number of total simuations (so nsims/iters per iteration)
-  nsamps = 250, # the number of points to simulate in process of determining cut-off for outlier
+  nsamps = nrow(dat), # the number of points to simulate in process of determining cut-off for outlier
   alpha=0.01 # error to allow in CIs for quantile cut-offs
 ){
 

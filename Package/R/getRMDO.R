@@ -21,6 +21,7 @@ getRMDO <- function(dat,nsamp="best", myalpha = 0.5 ){
 	## a private (to getRMDO) function: sqrtMat
 	## function to calculate cov^(-1/2) ##
 	#####################################################################################################
+		## replace this with my faster SVD version.
 	sqrtMat <- function(x, n){
 	  with(eigen(x), vectors %*% (values^n * t(vectors)))
 	}
@@ -28,11 +29,13 @@ getRMDO <- function(dat,nsamp="best", myalpha = 0.5 ){
 
   # Using fast-MCD to calculate robust mean and covariance
   mcd1 <- CovMcd(dat,alpha=myalpha,nsamp=nsamp)
-  x1 <- mcd1@center
-  cn <- mcd1@cov
+  	## removed to minimize memory footprint
+  #x1 <- mcd1@center	## replace with raw?
+  #cn <- mcd1@cov	## replace with raw?
 
   # Calculating the Mahalanobis distance (MD), and then robust MD outlyingness (RMDO) based on robust mean and covariance
-  md <- apply(dat,1,function(i){t(i-x1)%*%solve(cn)%*%(i-x1)})
+  #md <- apply(dat,1,function(i){t(i-x1)%*%solve(cn)%*%(i-x1)})
+  md <- mahalanobis(dat, mcd1@x1, mcd1@cn)
   rmde <- 1 + sqrt(md)
   rmde1 <- 1/rmde
   rmdo <- 1-rmde1 # outlyingness values
@@ -40,18 +43,18 @@ getRMDO <- function(dat,nsamp="best", myalpha = 0.5 ){
   used <- rownames(dat)[mcd1@best] # the subjects who were included in the MCD calculations
   #
   # Based on 2016 paper: Contributions to Quadratic Form
-  smpsd <- sqrt(diag(cn))
+  smpsd <- sqrt(diag(mcd1@cn))
   d <- diag(1/smpsd)      ## DB NOTE: a fraction can make a diag() panic.
-  dsd <- d %*% cn %*% d   ## DB Q: Is this converting cov to cor?
+  dsd <- d %*% mcd1@cn %*% d   ## DB Q: Is this converting cov to cor?
 
-  trans1 <- sweep(dat,2,x1) ## DB Q: Center data by robust mean?
+  trans1 <- sweep(dat,2, mcd1@x1) ## DB Q: Center data by robust mean?
   corrmax <- sqrtMat(dsd,-1/2) %*% d ## DB Q: inverse sqrt of cor times data?
   colnames(corrmax) <- rownames(corrmax) <- colnames(dat)
   contrib <- apply(trans1,1,function(i){corrmax %*% as.matrix(i)}) # DB Q: data times correlation?
   w2 <- t(contrib**2) ## DB Q: squared "contributions"?
   colnames(w2) <- colnames(dat)
 
-  return(list(RMDO=rmdo, mcdCenter=x1, mcdCov=cn, initDat=dat, myalpha=myalpha, W2=w2,corrMat=corrmax,mcdUsed=used))
+  return(list(RMDO=rmdo, mcdCenter= mcd1@x1, mcdCov= mcd1@cn, initDat=dat, myalpha=myalpha, W2=w2,corrMat=corrmax,mcdUsed=used))
   # mcdUsed=used, DSD=dsd, CorrMax=corrmax,
 }
 
