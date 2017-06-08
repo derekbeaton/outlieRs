@@ -10,7 +10,6 @@ require(outlieRs)
 ## We recommend for now that any preprocessing, scaling, and correction factors be done *before hand*. Read in a "cleaned" data file for outlier analyses
 ## The cleaning/correcting/scaling processes should be done in whatever software you are comfortable with.
 
-# Read data in from .csv file
 load('fin.scaled.dat.rda')
 
 
