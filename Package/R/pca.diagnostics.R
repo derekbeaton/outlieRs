@@ -139,6 +139,6 @@ ellipseInOut <- function (Z, p = 0.95, r = NULL)
     }
   }
 
-  return(list(ellipse.outliers=list(robust.outs=!z1.outs,classic.outs=!z2.outs),quantile.outliers=list(out.quantile.cd=out.quantile.cd,out.quantile.md=out.quantile.cd,out.quantile.both=out.quantile.both)))
+  return(list(ellipse.outliers=list(robust.outs=!z1.outs,classic.outs=!z2.outs),quantile.outliers=list(out.quantile.cd=out.quantile.cd,out.quantile.md=out.quantile.md,out.quantile.both=out.quantile.both)))
 
 }

@@ -76,10 +76,11 @@ head(rpcaOut)
 
 # combine results across all three methods
   ## Get the rownames of individuals.
-these.rows <- rownames(mcdOut)
+#these.rows <- rownames(mcdOut)
+these.rows <- rownames(rpcaOut)
   ## Use cbind to column bind vectors. Index them by 'these.rows'
 allOut <- cbind(
-                mcdOut[these.rows,'mcd_outlier'],
+                #mcdOut[these.rows,'mcd_outlier'],
                 bootOut[these.rows,c('mah_outlier','chi_outlier')],
                 rpcaOut[these.rows,'rpca_outlier']
               )
