@@ -43,18 +43,18 @@ getRMDO <- function(dat,nsamp="best", myalpha = 0.5 ){
   used <- rownames(dat)[mcd1@best] # the subjects who were included in the MCD calculations
   #
   # Based on 2016 paper: Contributions to Quadratic Form
-  smpsd <- sqrt(diag(mcd1@cn))
+  smpsd <- sqrt(diag(mcd1@cov))
   d <- diag(1/smpsd)      ## DB NOTE: a fraction can make a diag() panic.
-  dsd <- d %*% mcd1@cn %*% d   ## DB Q: Is this converting cov to cor?
+  dsd <- d %*% mcd1@cov %*% d   ## DB Q: Is this converting cov to cor?
 
-  trans1 <- sweep(dat,2, mcd1@x1) ## DB Q: Center data by robust mean?
+  trans1 <- sweep(dat,2, mcd1@center) ## DB Q: Center data by robust mean?
   corrmax <- sqrtMat(dsd,-1/2) %*% d ## DB Q: inverse sqrt of cor times data?
   colnames(corrmax) <- rownames(corrmax) <- colnames(dat)
   contrib <- apply(trans1,1,function(i){corrmax %*% as.matrix(i)}) # DB Q: data times correlation?
   w2 <- t(contrib**2) ## DB Q: squared "contributions"?
   colnames(w2) <- colnames(dat)
 
-  return(list(RMDO=rmdo, mcdCenter= mcd1@x1, mcdCov= mcd1@cn, initDat=dat, myalpha=myalpha, W2=w2,corrMat=corrmax,mcdUsed=used))
+  return(list(RMDO=rmdo, mcdCenter= mcd1@center, mcdCov= mcd1@cov, initDat=dat, myalpha=myalpha, W2=w2,corrMat=corrmax,mcdUsed=used))
   # mcdUsed=used, DSD=dsd, CorrMax=corrmax,
 }
 
