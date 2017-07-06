@@ -35,7 +35,7 @@ getRMDO <- function(dat,nsamp="best", myalpha = 0.5 ){
 
   # Calculating the Mahalanobis distance (MD), and then robust MD outlyingness (RMDO) based on robust mean and covariance
   #md <- apply(dat,1,function(i){t(i-x1)%*%solve(cn)%*%(i-x1)})
-  md <- mahalanobis(dat, mcd1@x1, mcd1@cn)
+  md <- mahalanobis(dat, mcd1@center, mcd1@cov)
   rmde <- 1 + sqrt(md)
   rmde1 <- 1/rmde
   rmdo <- 1-rmde1 # outlyingness values
