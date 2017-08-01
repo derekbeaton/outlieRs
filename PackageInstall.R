@@ -18,4 +18,4 @@ install.packages(c('rrcov','doparallel','TInPosition','rpca','reshape','ggplot2'
 	
 	
 ## INSTALL OPTION (2)
-	install.packages('http://github.com/derekbeaton/outlieRs/raw/master/outlieRs_0.1.0.9001.tar.gz',repos=NULL)
+	install.packages('http://github.com/derekbeaton/outlieRs/raw/master/outlieRs_0.1.0.9002.tar.gz',repos=NULL)
