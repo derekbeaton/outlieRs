@@ -5,7 +5,7 @@
 #'
 #' @param dat the data frame from which to identify outliers. Observation identifiers should be in the rownames. Assumes complete data and variables have been centred and standardized, if necessary.
 #' @param rmdo_alpha the alpha to be used in CovMcd – the proportion of observations to keep in the robust cluster.
-#' @param rmdo_samp the nsamp to be used in CovMcd – the maximum number of iterations to use for convergence of the robust cluster. "best" is recommended as "exhaustive enumeration is done, as long as the number of trials does not exceed 5000." See also ?\code{CovMcd}
+#' @param rmdo_nsamp the nsamp to be used in CovMcd – the maximum number of iterations to use for convergence of the robust cluster. "best" is recommended as "exhaustive enumeration is done, as long as the number of trials does not exceed 5000." See also ?\code{CovMcd}
 #' @param nsims number of repetitions of simulating multivariate normal in idOutliers.
 #' @param nsamps number of observations to simulate within each repetition for idOutliers.
 #' @param alpha the error to allow for quantile cut-offs. 1-alpha -> thisquant in idOutliers.

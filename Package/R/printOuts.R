@@ -17,8 +17,8 @@ printOuts <- function(
   outs1 <- multiOutdat1[["RMDO"]]
   outCut <- multiOutdat1[["CutOff"]]
   # Plot of decreasing RMDO values, with the cut-off identified
-  outs1$ID <- factor(outs1$ID,level=outs1$ID)
-  outs1$Outlier <- factor(outs1$Outlier,level=unique(outs1$Outlier))
+  outs1$ID <- factor(outs1$ID,levels=outs1$ID)
+  outs1$Outlier <- factor(outs1$Outlier,levels=unique(outs1$Outlier))
 
   print(ggplot(outs1,aes(x=RMDO,y=rep(0,nrow(outs1)),color=Outlier)) + geom_point(size=4) + geom_vline(xintercept=outCut,linetype="dashed",size=0.5) +
           geom_text(data=data.frame(outCut),aes(label="Cut-Off",x=outCut,y=0,fontface="bold"),size=5.5,color="black",nudge_x=0.008,nudge_y=-0.005) +

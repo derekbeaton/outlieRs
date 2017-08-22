@@ -42,4 +42,3 @@ the.data_corrected_for_ABV <- apply(the.data,2, function(x){ resid(lm(x~beer.tas
 beer_MCD.boot_full.combined_95 <- mcd.boot_find.outliers(the.data,center=F,scale=F)
 beer.corrected_MCD.boot_full.combined_95 <- mcd.boot_find.outliers(the.data_corrected_for_ABV,center=F,scale=F)
 }
-

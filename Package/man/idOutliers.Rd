@@ -8,7 +8,7 @@ Identifying MCD-based Outliers
 idOutliers identifies outliers from getRMDO output based on multivariate simulations of the robust mean and covariance.
 }
 \usage{
-idOutliers(obsOV, rmdo_nsamp = 500, nsamps = 250, nreps = 100, thisquant = 0.95)
+idOutliers(obsOV, rmdo_nsamp = 100, nsamps = 100, nreps = 100, thisquant = 0.95)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -63,8 +63,8 @@ the quantile to use as the outlier cut-off.
 ##--	or do  help(data=index)  for the standard data sets.
 
 ## The function is currently defined as
-function (obsOV, rmdo_nsamp = 500, nsamps = 250, nreps = 100, 
-    thisquant = 0.95) 
+function (obsOV, rmdo_nsamp = 500, nsamps = 250, nreps = 100,
+    thisquant = 0.95)
 {
     mcdMn <- obsOV[["mcdCenter"]]
     mcdCov <- obsOV[["mcdCov"]]

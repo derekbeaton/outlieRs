@@ -36,4 +36,3 @@ Quick PCA diagnostics for outlier detection.
  beer.corrected.diagnostics.res <- pca.diagnostics(the.data_corrected_for_ABV,center = F,scale = F)
 
 }
-

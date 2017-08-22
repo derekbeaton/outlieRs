@@ -5,20 +5,20 @@
 \title{multivariate outliers (via MCD)}
 \usage{
 multiOut(dat, rmdo_alpha = 0.8, rmdo_nsamp = "best", nsims = 100,
-  nsamps = 250, alpha = 0.01)
+  nsamps = nrow(dat), alpha = 0.01)
 }
 \arguments{
 \item{dat}{the data frame from which to identify outliers. Observation identifiers should be in the rownames. Assumes complete data and variables have been centred and standardized, if necessary.}
 
 \item{rmdo_alpha}{the alpha to be used in CovMcd – the proportion of observations to keep in the robust cluster.}
 
+\item{rmdo_nsamp}{the nsamp to be used in CovMcd – the maximum number of iterations to use for convergence of the robust cluster. "best" is recommended as "exhaustive enumeration is done, as long as the number of trials does not exceed 5000." See also ?\code{CovMcd}}
+
 \item{nsims}{number of repetitions of simulating multivariate normal in idOutliers.}
 
 \item{nsamps}{number of observations to simulate within each repetition for idOutliers.}
 
 \item{alpha}{the error to allow for quantile cut-offs. 1-alpha -> thisquant in idOutliers.}
-
-\item{rmdo_samp}{the nsamp to be used in CovMcd – the maximum number of iterations to use for convergence of the robust cluster. "best" is recommended as "exhaustive enumeration is done, as long as the number of trials does not exceed 5000." See also ?\code{CovMcd}}
 }
 \value{
 A list with two elements: outlier_decision and hidden_detail.
@@ -40,4 +40,3 @@ the.data_corrected_for_ABV <- apply(the.data,2, function(x){ resid(lm(x~beer.tas
 beer_mcd <- multiOut(the.data)
 beer.corrected_mcd <- multiOut(the.data_corrected_for_ABV)
 }
-
