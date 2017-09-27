@@ -16,7 +16,7 @@
 #'
 #' @seealso \code{\link{SIBER}}
 #'
-#' @note Several functions from the SIBER package (e.g., pointsToEllipsoid, ellipsoidTransform, ellipseInOut, and addEllipse) have been copied for use here as private functions.
+#' @note Several functions from the SIBER package (e.g., genCircle, pointsToEllipsoid, ellipsoidTransform, ellipseInOut, and addEllipse) have been copied for use here as private functions.
 #'
 #' @examples
 #'  data(beer.tasting.notes)
@@ -80,6 +80,14 @@ addEllipse <- function (mu, sigma, m = NULL, n = 100, p.interval = NULL, ci.mean
     graphics::lines(ML.ellipse, ...)
   }
   return(ML.ellipse)
+}
+
+genCircle <- function (n = 100, r)
+{
+  theta = seq(0, 2 * pi, length = n)
+  x = r * cos(theta)
+  y = r * sin(theta)
+  return(cbind(x, y))
 }
 
 
