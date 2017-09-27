@@ -14,6 +14,10 @@
 #' \item{ellipse.outers}{ a list with two boolean vectors: robust.outs and classic.outs. Outliers detected from the ellipse intervals around Mahalanonbis vs. Chi-squared distances. If an observation is an outlier, they are denoted as TRUE in either vector.}
 #' \item{quantile.outliers}{ a list with two boolean vectors: robust.outs and classic.outs. Outliers detected from the quantile intervals of Mahalanonbis vs. Chi-squared distances. If an observation is an outlier, they are denoted as TRUE in either vector.}
 #'
+#' @seealso \code{\link{SIBER}}
+#'
+#' @note Several functions from the SIBER package (e.g., pointsToEllipsoid, ellipsoidTransform, ellipseInOut, and addEllipse) have been copied for use here as private functions.
+#'
 #' @examples
 #'  data(beer.tasting.notes)
 #'  the.data <- expo.scale(beer.tasting.notes$data)
@@ -25,13 +29,13 @@
 pca.diagnostics <- function(X, center=T, scale=T, ellipse.alpha=.95, quantile.alpha=.75, graphs=T){
 
 	## pTE private function. STOLEN FROM SIBER 2.1.0
-pointsToEllipsoid <- function (X, Sigma, mu) 
+pointsToEllipsoid <- function (X, Sigma, mu)
 {
-    if (ncol(Sigma) != nrow(Sigma)) 
+    if (ncol(Sigma) != nrow(Sigma))
         stop("Sigma must be a square matrix")
-    if (ncol(X) != ncol(Sigma)) 
+    if (ncol(X) != ncol(Sigma))
         stop("number of columns in X must \n                                  be of same dimension as Sigma")
-    if (length(mu) != ncol(Sigma)) 
+    if (length(mu) != ncol(Sigma))
         stop("length of mu must \n                                  be of same dimension as Sigma")
     eig <- eigen(Sigma)
     SigSqrt = eig$vectors %*% diag(sqrt(eig$values)) %*% t(eig$vectors)
@@ -40,19 +44,42 @@ pointsToEllipsoid <- function (X, Sigma, mu)
 }
 
 	## pTE private function. STOLEN FROM SIBER 2.1.0
-ellipsoidTransform <- function (x, SigSqrt, mu) 
+ellipsoidTransform <- function (x, SigSqrt, mu)
 {
     return(solve(SigSqrt, x - mu))
 }
 
 	## pTE private function. STOLEN FROM SIBER 2.1.0
-ellipseInOut <- function (Z, p = 0.95, r = NULL) 
+ellipseInOut <- function (Z, p = 0.95, r = NULL)
 {
     if (is.null(r)) {
         r <- stats::qchisq(p, df = ncol(Z))
     }
     inside <- rowSums(Z^2) < r
     return(inside)
+}
+
+addEllipse <- function (mu, sigma, m = NULL, n = 100, p.interval = NULL, ci.mean = FALSE,small.sample = FALSE, do.plot = TRUE, ...)
+{
+  if (small.sample & is.null(m))
+    message("A sample size number given by m is \n required when small.sample is TRUE")
+  if (ci.mean & is.null(m))
+    message("A sample size number given by m is \n  required when plotting confidence \n ellipses of the mean with ci.mean is TRUE")
+  ifelse(ci.mean, c.scale <- m, c.scale <- 1)
+  ifelse(small.sample, q <- (m - 1)/(m - 2), q <- 1)
+  ifelse(is.null(p.interval), r <- 1, r <- sqrt(stats::qchisq(p.interval,
+                                                              df = 2)))
+  e = eigen(sigma/c.scale)
+  SigSqrt = e$vectors %*% diag(sqrt(e$values * q)) %*% t(e$vectors)
+  cc <- genCircle(n, r)
+  back.trans <- function(x) {
+    return(SigSqrt %*% x + mu)
+  }
+  ML.ellipse = t(apply(cc, 1, back.trans))
+  if (grDevices::dev.cur() > 1 & do.plot) {
+    graphics::lines(ML.ellipse, ...)
+  }
+  return(ML.ellipse)
 }
 
 

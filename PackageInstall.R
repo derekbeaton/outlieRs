@@ -4,7 +4,7 @@
 # Run this file only once!
 
 
-install.packages(c('rrcov','doparallel','TInPosition','rpca','reshape','ggplot2','colorspace','robustbase', 'SIBER', 'psych'),dependencies = T)
+install.packages(c('rrcov','doparallel','TInPosition','rpca','reshape','ggplot2','colorspace','robustbase', 'SIBER'),dependencies = T)
 
 
 	## install from either of the options below; running both is not necessary.
@@ -18,4 +18,4 @@ install.packages(c('rrcov','doparallel','TInPosition','rpca','reshape','ggplot2'
 
 
 ## INSTALL OPTION (2)
-	install.packages('http://github.com/derekbeaton/outlieRs/raw/master/outlieRs_0.1.0.9003.tar.gz',repos=NULL)
+	install.packages('http://github.com/derekbeaton/outlieRs/raw/master/outlieRs_0.1.0.9004.tar.gz',repos=NULL)
